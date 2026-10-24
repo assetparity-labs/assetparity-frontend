@@ -1,0 +1,17 @@
+name: Console shell
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: assetparity-labs/assetparity-frontend
+          path: assetparity-frontend
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test assetparity-frontend/test.mjs
